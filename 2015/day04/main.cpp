@@ -24,7 +24,7 @@ bool check_hash(unsigned char* hash);
 int main(int argc, char* argv[]) {
   if (argc < 2) {
     std::cerr << "please provide a secret key as an argument\n";
-    return 1;
+    return -1;
   }
 
   const std::string key{std::string(argv[1])};

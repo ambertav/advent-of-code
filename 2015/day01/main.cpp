@@ -25,7 +25,7 @@
 int main(int argc, char* argv[]) {
   if (argc < 2) {
     std::cerr << "please provide an input file as an argument\n";
-    return 1;
+    return -1;
   }
 
   std::ifstream file{argv[1]};
