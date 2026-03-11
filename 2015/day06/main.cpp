@@ -33,8 +33,8 @@
         Iterate and sum brightness levels across all lights
 
     Complexity:
-        O(n*a) time -- where n is number of instructions, a is average area per
-   instruction O(1) space
+        O(n*a) time -- where n is number of instructions, a is average area per instruction
+        O(1) space
 */
 
 int main(int argc, char* argv[]) {
@@ -48,7 +48,10 @@ int main(int argc, char* argv[]) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
+  
   std::vector<std::vector<int>> grid(
       1000, std::vector<int>(1000, 0));  // 1000 x 1000 elements, all zeros
 

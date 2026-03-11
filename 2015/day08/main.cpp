@@ -45,7 +45,9 @@ int main(int argc, char* argv[]) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
 
   int total_in_code{};
   int total_in_memory{};

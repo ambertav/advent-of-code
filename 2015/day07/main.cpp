@@ -57,7 +57,9 @@ int main(int argc, char* argv[]) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
 
   std::unordered_map<std::string /* wire */, Instruction> instructions{};
   std::unordered_map<std::string /* wire */, uint16_t /* 16-bit signal */>

@@ -33,7 +33,9 @@ int main(int argc, char* argv[]) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
 
   auto char_to_int = [](std::string_view sv) -> int {
     int result{};
