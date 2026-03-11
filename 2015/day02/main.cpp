@@ -13,9 +13,10 @@
         Calculate wrapping paper and ribbon needed for presents
 
     Approach:
-        Read input file into string buffer, parse on delimiter 'x' and convert `std::string_view` into integers 
-        Sort dimensions to easily identify smallest values
-        Calculate wrapping paper (surface area + slack) and ribbon (perimeter + bow)
+        Read input file into string buffer, parse on delimiter 'x' and convert
+  `std::string_view` into integers Sort dimensions to easily identify smallest
+  values Calculate wrapping paper (surface area + slack) and ribbon (perimeter +
+  bow)
 
     Complexity:
         O(n) time - constant time per line
@@ -28,12 +29,14 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  std::ifstream file{argv[1]};
+  std::ifstream file{argv[1], std::ios::ate};
   if (!file.is_open()) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
 
   auto char_to_int = [](std::string_view sv) -> int {
     int result{};

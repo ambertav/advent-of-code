@@ -43,12 +43,15 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  std::ifstream file{argv[1]};
+  std::ifstream file{argv[1], std::ios::ate};
   if (!file.is_open()) {
     throw std::runtime_error("could not open input file");
   }
 
-  std::string buffer{std::istreambuf_iterator<char>{file}, {}};
+  std::string buffer(file.tellg(), '\0');
+  file.seekg(0);
+  file.read(buffer.data(), buffer.size());
+
   std::vector<std::vector<int>> grid(
       1000, std::vector<int>(1000, 0));  // 1000 x 1000 elements, all zeros
 
